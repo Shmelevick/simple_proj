@@ -17,4 +17,5 @@ loguru = "^0.7.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^25.9.0"
+pyright = "^1.1.405"
 
