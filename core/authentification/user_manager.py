@@ -4,7 +4,6 @@ from typing import TYPE_CHECKING
 
 from fastapi_users import BaseUserManager, IntegerIDMixin
 
-from .db import User, get_user_db
 from core.config import settings
 from core.models import User
 from core.models.types.user_id import UserIdType

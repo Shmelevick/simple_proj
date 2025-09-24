@@ -10,7 +10,8 @@ from core.config import settings
 
 if TYPE_CHECKING:
     from core.models.access_token import AccessToken
-    from fastapi_users.authentication.strategy.db import AccessTokenDatabase,
+    from fastapi_users.authentication.strategy.db import AccessTokenDatabase
+
 
 def get_database_strategy(
     access_token_db: AccessTokenDatabase[AccessToken] = Depends(get_access_token_db),
