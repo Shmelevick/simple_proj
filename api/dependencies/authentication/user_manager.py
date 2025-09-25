@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 from fastapi import Depends
 
-from api.dependencies.users import get_user_db
+from api.dependencies.authentication.users import get_user_db
 from core.authentification.user_manager import UserManager
 
 if TYPE_CHECKING:
