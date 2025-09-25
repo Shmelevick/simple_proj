@@ -1,16 +1,20 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
+import fastapi_users
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
+from api.api_v1.fastapi_users_routers import fastapi_users
 from core.config import settings
 from core.schemas import UserRead, UserCreate
 from core.crud import get_all_users, create_user_crud
 from core.models import db_helper
+from core.schemas.user import UserUpdate
 
 
 router = APIRouter(prefix=settings.api.v1.users, tags=["Users"])
+router.include_router(router=fastapi_users.get_users_router(UserRead, UserUpdate))
 
 
 @router.get("/", response_model=list[UserRead])
