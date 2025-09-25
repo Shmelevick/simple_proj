@@ -8,6 +8,8 @@ from sqlalchemy.ext.asyncio import (
 
 from core.config import settings
 
+from icecream import ic
+
 
 class DatabaseHelper:
     def __init__(
@@ -35,6 +37,7 @@ class DatabaseHelper:
 
     async def session_get(self) -> AsyncGenerator[AsyncSession, None]:
         async with self.session_factory() as session:
+            ic(session)
             yield session
 
 

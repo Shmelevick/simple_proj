@@ -7,6 +7,8 @@ from api.dependencies.authentication.access_tokens import get_access_token_db
 from core.config import Settings
 from core.config import settings
 
+from icecream import ic
+
 
 if TYPE_CHECKING:
     from core.models.access_token import AccessToken
@@ -16,6 +18,7 @@ if TYPE_CHECKING:
 def get_database_strategy(
     access_token_db: "AccessTokenDatabase[AccessToken]" = Depends(get_access_token_db),
 ) -> DatabaseStrategy:
+    ic(access_token_db)
     return DatabaseStrategy(
         access_token_db, lifetime_seconds=settings.access_token.lifetime_seconds
     )
