@@ -10,5 +10,11 @@ from .users import router as users_router
 
 router = APIRouter(prefix=settings.api.v1.auth, tags=["Auth"])
 
+# /login /logout
 router.include_router(router=fastapi_users.get_auth_router(authentication_backend))
+
+# /register
 router.include_router(router=fastapi_users.get_register_router(UserRead, UserCreate))
+
+# /verify
+router.include_router(router=fastapi_users.get_verify_router(UserRead))
