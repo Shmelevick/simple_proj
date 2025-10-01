@@ -1,3 +1,4 @@
+from typing import Literal
 from pydantic import BaseModel, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -7,11 +8,24 @@ class RunConfig(BaseModel):
     port: int = 8000
 
 
+class GunicornConfig(BaseModel):
+    host: str = "0.0.0.0"
+    port: int = 8000
+    workers: int = 1
+    timeout: int = 900
+
+
+class LoggingConfig(BaseModel):
+    log_level: Literal["debug", "info", "warning", "error", "critical"] = "info"
+    log_format: str = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+
 class ApiV1Prefix(BaseModel):
     prefix: str = "/v1"
     users: str = "/users"
     auth: str = "/auth"
     messages: str = "/messages"
+    deps: str = "/deps"
 
 
 class ApiPrefix(BaseModel):
@@ -54,11 +68,12 @@ class Settings(BaseSettings):
         env_nested_delimiter="__",
         env_prefix="APP_CONFIG__",
     )
-
+    gunicorn: GunicornConfig = GunicornConfig()
     run: RunConfig = RunConfig()
     api: ApiPrefix = ApiPrefix()
     db: DatabaseConfig
     access_token: AccessToken
+    logging: LoggingConfig = LoggingConfig()
 
 
 settings = Settings()
