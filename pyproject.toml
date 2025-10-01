@@ -15,6 +15,7 @@ orjson = "^3.11.3"
 fastapi-users = {extras = ["sqlalchemy"], version = "^14.0.1"}
 loguru = "^0.7.3"
 icecream = "^2.1.8"
+gunicorn = "^23.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^25.9.0"
