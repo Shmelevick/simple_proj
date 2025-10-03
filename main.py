@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+import logging
 
 import uvicorn
 from fastapi import FastAPI
@@ -6,7 +7,14 @@ from fastapi.responses import ORJSONResponse
 
 from core.config import settings
 from api import router as api_router
+from core.models import db_helper
 from create_fastapi_app import create_app
+
+logging.basicConfig(
+    level=settings.logging.log_level, format=settings.logging.log_format
+)
+
+log = logging.getLogger(__name__)
 
 
 app = create_app(create_custom_static_url=True)

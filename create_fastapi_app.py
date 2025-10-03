@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+import logging
 
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
@@ -7,10 +8,15 @@ from fastapi.openapi.docs import (
 )
 
 from core.models import db_helper
+from api import webhooks_router
+
+
+log = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    log.info("Запуск contextmanager")
     yield
     await db_helper.dispose()
 
@@ -32,6 +38,7 @@ def create_app(create_custom_static_url: bool = False) -> FastAPI:
         default_response_class=ORJSONResponse,
         lifespan=lifespan,
         docs_url=None if create_custom_static_url else "/docs",
+        webhooks=webhooks_router,
     )
     if create_custom_static_url:
         register_static_docs_routes(app)
