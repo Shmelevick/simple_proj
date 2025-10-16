@@ -9,6 +9,7 @@ from fastapi.openapi.docs import (
 
 from core.models import db_helper
 from api import webhooks_router
+from errors_handlers import register_errors_handlers
 
 
 log = logging.getLogger(__name__)
@@ -43,4 +44,5 @@ def create_app(create_custom_static_url: bool = False) -> FastAPI:
     if create_custom_static_url:
         register_static_docs_routes(app)
 
+    register_errors_handlers(app)
     return app
